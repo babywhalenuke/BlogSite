@@ -32,7 +32,7 @@ if($_SESSION['isAuthenticated']){
 else{
     
  ECHO' <div class="container col-md-2">
-            <img class="img-responsive" src="images/waterfall.jpg">
+            <img class="img-responsive" src="http://images.fineartamerica.com/images-medium-large-5/iceland-black-and-white-skogafoss-waterfall-matthias-hauser.jpg">
             <nav class="navbar navbar-default">
             <ul>
                 <li><a href="/328/blog">Home</li></a>

@@ -11,16 +11,13 @@ $GLOBALS['blogDB'] = new BlogDB();
 $f3->set('DEBUG',3);
 //define default route
 
-$f3->route('GET /', function($f3) {
+$f3->route('GET @home : /', function($f3) {
     $blogDB = $GLOBALS['blogDB'];
     $userDB = $GLOBALS['userDB'];
     
     $results = $blogDB->getHomePageInfo();
- 
     
-    echo var_dump($results);
     $f3->set('users',$results);
-
     
     echo Template::instance()->render('pages/menu.php');
     echo Template::instance()->render('pages/home.html');
@@ -35,11 +32,13 @@ $f3->route('GET /about', function() {
 
 $f3->route('GET /login', function() {
     $view = new View;
+    echo $view->render('pages/menu.php');
     echo $view->render('pages/login.html');
 });
 
 $f3->route('GET /signup', function() {
     $view = new View;
+     echo $view->render('pages/menu.php');
     echo $view->render('pages/signup.html');
 });
 
@@ -59,6 +58,37 @@ $f3->route('POST /submitblog', function($f3) {
 
 });
 
+
+$f3->route('GET /viewuserblogs/@userid', function($f3,$params) {
+    $userid = $params['userid'];
+    $blogDB = $GLOBALS['blogDB'];
+    $userDB = $GLOBALS['userDB'];
+    $blogs = $blogDB->getBlogsWithCreateDateByUser($userid);
+    $user = $userDB->getUser($userid);   
+    $f3->set('user',$user);
+    $f3->set('blogs',$blogs);
+    
+    echo Template::instance()->render('pages/menu.php');
+    echo Template::instance()->render('pages/viewuserblogs.html');
+    
+});
+$f3->route('GET /viewblogdtl/@blogid', function($f3,$params) {
+    
+    $blogid = $params['blogid'];
+    $blogDB = $GLOBALS['blogDB'];
+    $userDB = $GLOBALS['userDB'];    
+    
+    $blog = $blogDB->getBlogByID($blogid);
+    $userid = $blog->getUserID();
+    $user = $userDB->getUser($userid);
+    
+    $f3->set('user',$user);
+    $f3->set('blog',$blog);
+    
+    echo Template::instance()->render('pages/menu.php');
+    echo Template::instance()->render('pages/viewblogdtl.html');
+});
+
 $f3->route('GET @seeblogs: /myblogs', function($f3) {
     $userid = $_SESSION['userid'];
     $blogDB = $GLOBALS['blogDB'];
@@ -66,13 +96,11 @@ $f3->route('GET @seeblogs: /myblogs', function($f3) {
     $blogs = $blogDB->getBlogsByUser($userid);
     $user = $userDB->getUser($userid);
     
-    
-
     $f3->set('user',$user);
     $f3->set('blogs',$blogs);
+    
     echo Template::instance()->render('pages/menu.php');
     echo Template::instance()->render('pages/viewblogs.html');
-    
 });
 
 $f3->route('GET /updateblog/@blogid', function($f3,$params) {
@@ -82,8 +110,6 @@ $f3->route('GET /updateblog/@blogid', function($f3,$params) {
     $userid = $_SESSION['userid'];     
     $blog = $blogDB->getBlogByID($params['blogid']);
     $f3->set('blog',$blog);
-    
-    
     
    # $f3->set('user',$user);
   #  $f3->set('blogs',$blogs);
@@ -109,7 +135,7 @@ $f3->route('GET /deleteblog/@blogid', function($f3,$params) {
 });
 
 
-$f3->route('POST /loginWelcome', function() {
+$f3->route('POST /loginWelcome', function($f3) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     
@@ -132,7 +158,7 @@ $f3->route('POST /loginWelcome', function() {
         $_SESSION['username'] = $username;
         $view = new View;
  
-        echo $view->render('pages/home.html');
+        $f3->reroute("@home");
         
            
         }
@@ -142,7 +168,7 @@ $f3->route('POST /loginWelcome', function() {
     }
 });
 
-$f3->route('POST /welcome', function() {    
+$f3->route('POST /welcome', function($f3) {    
     
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -155,14 +181,12 @@ $f3->route('POST /welcome', function() {
     $userDB = $GLOBALS['userDB'];
     $userDB->addUser($username,$password,$email,$bio,$portrait);
     
-    $view = new View;
-    echo $view->render('pages/viewblogs.html');
+    $f3->reroute("@home");
 });
 
-$f3->route('GET /logout', function() {
+$f3->route('GET /logout', function($f3) {
     $_SESSION['isAuthenticated'] = false;
-    $view = new View;
-    echo $view->render('pages/home.html');
+   $f3->reroute("@home");
 });
 
 //Run fat free

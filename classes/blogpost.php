@@ -7,15 +7,16 @@
         private $_blogbody;
         private $_userid;
         private $_isactive;
+        private $_createdate;
         
         
-        function __construct($blogid,$blogtitle,$blogbody,$userid,$isactive){
+        function __construct($blogid,$blogtitle,$blogbody,$userid,$isactive,$createdate){
             $this->_blogid = $blogid;
             $this->_blogtitle = $blogtitle;
             $this->_blogbody = $blogbody;
             $this->_userid = $userid;
             $this->_isactive = $isactive;
-            
+            $this->_createDate = $createdate;
         }
         
         function setBlogID($blogid){
@@ -59,4 +60,13 @@
         function getIsActive(){
             return $this->_isactive;
         }
+        
+        function setCreateDate($createDate){
+            $this->_createDate = $createDate;
+        }
+        
+        function getCreateDate(){
+            return $this->_createDate;
+        }
+        
     }

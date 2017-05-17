@@ -81,18 +81,5 @@ Class UserDB
             
         }
         
-        function getUsers()
-        {
-            
-             $select = 'SELECT';
-             
-            $statement = $this->_pdo->prepare($select);
-            
-            $statement->execute();
-            
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
-            return $result;            
-            
-        }
+
 }

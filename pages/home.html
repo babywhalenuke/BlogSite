@@ -3,14 +3,14 @@
     <head>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css">
+    <link rel="stylesheet" href="css/blogstyle.css" type="text/css">
     <title>Blog Home</title>
     </head>
     
     <body>
-        <div class="container">
-            <div class="container col-md-10">
+        <div class="container">           
                 <repeat group="{{@users}}" value="{{@user}}">
-                <div class="container col-md-4 text-center navbar-default">
+                <div class="container col-md-4 text-center navbar-default cont-pad">
                     <img src="{{@user['image']}}" class="img-responsive">
                     <hr>
                     <p>{{@user['username']}}</p>
@@ -30,8 +30,6 @@
                 </div>
                 </repeat>
             </div>
-        </div>
-     
     </body>
 </html>
 

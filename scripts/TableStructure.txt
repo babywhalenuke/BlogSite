@@ -16,5 +16,6 @@ CREATE TABLE blogdtl(
 	blogtitle text,
 	blogbody longtext,
 	userid int NOT NULL,
-	isactive tinyint
+	isactive tinyint,
+	createdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

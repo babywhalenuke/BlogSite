@@ -42,19 +42,37 @@ Class BlogDB
         
         function getBlogsByUser($userid)
         {
-           $select = 'SELECT blogid,blogtitle, blogbody, userid,isactive FROM blogdtl WHERE userid = :userid and isactive = 1';
+           $select = 'SELECT blogid,blogtitle, blogbody, userid,isactive, createdate FROM blogdtl WHERE userid = :userid and isactive = 1';
            $statement = $this->_pdo->prepare($select);
            $statement->bindParam(':userid',$userid,PDO::PARAM_STR);
            $statement->execute();
            $resultArray = $statement->fetchAll(PDO::FETCH_ASSOC);
            $result = array();           
            foreach($resultArray as $row){
-            $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive']);
+            $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive'],$row['createdate']);
             array_push($result,$blog);
            }
            
            return $result;
         }
+        
+        function getBlogsWithCreateDateByUser($userid)
+        {
+           $select = 'SELECT blogid,blogtitle, blogbody, userid,isactive,createDate FROM blogdtl WHERE userid = :userid and isactive = 1';
+           $statement = $this->_pdo->prepare($select);
+           $statement->bindParam(':userid',$userid,PDO::PARAM_STR);
+           $statement->execute();
+           $resultArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+           $result = array();           
+           foreach($resultArray as $row){
+            $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive'],$row['createDate']);
+            array_push($result,$blog);
+           }
+           
+           return $result;
+        }
+        
+        
           function getAllBlogs()
         {
            $select = 'SELECT blogid, blogtitle, blogbody, userid, isactive FROM blogdtl WHERE  isactive = 1';
@@ -71,14 +89,14 @@ Class BlogDB
         
         function getBlogByID($blogid)
         {
-           $select = 'SELECT blogid,blogtitle, blogbody, userid,isactive FROM blogdtl WHERE blogid = :blogid';
+           $select = 'SELECT blogid,blogtitle, blogbody, userid,isactive, createdate FROM blogdtl WHERE blogid = :blogid';
            $statement = $this->_pdo->prepare($select);
            $statement->bindParam(':blogid',$blogid,PDO::PARAM_STR);
            $statement->execute();
            $resultArray = $statement->fetchAll(PDO::FETCH_ASSOC);
           
            foreach($resultArray as $row){
-            $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive']);
+            $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive'],$row['createdate']);
             return $blog;
            }
            
