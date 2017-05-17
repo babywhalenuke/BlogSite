@@ -76,14 +76,38 @@ Class BlogDB
            $statement->bindParam(':blogid',$blogid,PDO::PARAM_STR);
            $statement->execute();
            $resultArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-           $result = array();           
+          
            foreach($resultArray as $row){
             $blog = new BlogPost($row['blogid'],$row['blogtitle'],$row['blogbody'],$row['userid'],$row['isactive']);
-            array_push($result,$blog);
+            return $blog;
            }
            
+           
+        }
+        
+           
+        function removeBlog($blogid)
+        {
+           $update= 'UPDATE blogdtl SET isactive = 0 where blogid = :blogid';
+           $statement = $this->_pdo->prepare($update);
+           $statement->bindParam(':blogid',$blogid,PDO::PARAM_STR);
+           $statement->execute();         
            return $result;
         }
+        
+        function updateBlog($blogid,$blogtitle,$blogbody){
+             $update= 'UPDATE blogdtl SET blogtitle = :blogtitle, blogbody = :blogbody
+             WHERE blogid = :blogid';             
+            $statement = $this->_pdo->prepare($update);
+            $statement->bindParam(':blogid', $blogid,PDO::PARAM_STR); 
+            $statement->bindParam(':blogtitle', $blogtitle, PDO::PARAM_STR); 
+            $statement->bindParam(':blogbody', $blogbody, PDO::PARAM_STR);      
+            $statement->execute();
+            
+        }
+
+
+        
         
         
         

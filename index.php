@@ -47,9 +47,6 @@ $f3->route('POST /submitblog', function($f3) {
 
 });
 
-
-
-
 $f3->route('GET @seeblogs: /myblogs', function($f3) {
     $userid = $_SESSION['userid'];
     $blogDB = $GLOBALS['blogDB'];
@@ -64,18 +61,41 @@ $f3->route('GET @seeblogs: /myblogs', function($f3) {
     
 });
 
-$f3->route('POST /updateblog/@blogid', function($f3,$params) {
+$f3->route('GET /updateblog/@blogid', function($f3,$params) {
     $blogDB = $GLOBALS['blogDB'];
     $title = $_POST['title'];
     $body = $_POST['entry'];
     $userid = $_SESSION['userid'];     
-    $blogDB->getBlogByID($params['blogid']);
+    $blog = $blogDB->getBlogByID($params['blogid']);
+    $f3->set('blog',$blog);
     
-    $f3->set('user',$user);
-    $f3->set('blogs',$blogs);
+    
+    
+   # $f3->set('user',$user);
+  #  $f3->set('blogs',$blogs);
     echo Template::instance()->render('pages/updateblog.html');
 
 });
+
+$f3->route('POST /updateblog/submitupdateblog', function($f3) {
+    $blogDB = $GLOBALS['blogDB'];
+    $blogID = $_POST['blogid'];
+    $title = $_POST['title'];
+    $body = $_POST['entry'];     
+    $blog = $blogDB->updateBlog($blogID,$title,$body);
+    $f3->reroute("@seeblogs");
+
+});
+
+$f3->route('GET /deleteblog/@blogid', function($f3,$params) {
+    $blogDB = $GLOBALS['blogDB'];    
+    $blogDB->removeBlog($params['blogid']);
+    $f3->reroute("@seeblogs");
+});
+
+
+
+
 
 
 

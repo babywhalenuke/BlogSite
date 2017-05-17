@@ -9,7 +9,7 @@
     
     <body>
         <div class="container">
-            <? include('menu.php') ?>
+
             <div class="container col-md-10">
                      <div class="container navbar-default">
                     <div class="row col-md-9">
@@ -22,14 +22,14 @@
             <form action="submitupdateblog" method="post">
                 <div class="form-group">
                     <label for="title">Update Title</label>
-                    <input class="form-control" type="textbox" name="title" value="{{@blog->getBlogTitle()}}">
+                    <input class="form-control" type="textbox" name="title" value="<?= $blog->getBlogTitle() ?>">
                 </div>
                 <div class="form-group">
-                    <input type="textbox" name="blogid" value="{{@blog->getBlogID()}}" hidden>
+                    <input type="textbox" name="blogid" value="<?= $blog->getBlogID() ?>" hidden>
                 </div>
                    <div class="form-group">
                     <label for="entry">Update Entry</label>
-                    <textarea class="form-control"  type="textarea" name="entry">{{@blog->getBlogBody()}}</textarea>
+                    <textarea class="form-control"  type="textarea" name="entry"><?= $blog->getBlogBody() ?></textarea>
                 </div>
                 <input type="submit" value="Save" class="btn-primary big-btn img-rounded col-md-offset-5">               
             </form>                

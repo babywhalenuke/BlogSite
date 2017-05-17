@@ -35,8 +35,10 @@
                         <?php endforeach; ?>
                 </table>    
                     </div>
-                    <div class="container col-md-3">
-                        This is where the bio goes.
+                    <div class="container col-md-3 text-center">
+                        <h3><?= $user->getUsername() ?></h3>
+                        <hr>
+                        <p>Bio: <?= $user->getBio() ?></p>
                     </div>
            
                 
