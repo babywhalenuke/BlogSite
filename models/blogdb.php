@@ -120,7 +120,7 @@ Class BlogDB
         }
         
           function getHomePageInfo(){
-            $select = "SELECT user.username, user.image, blogletter.blogsnip, COUNT(blogdtl.blogid) as numposts FROM user INNER JOIN blogdtl on user.userid = blogdtl.userid
+            $select = "SELECT user.username, user.image, user.userid, blogletter.blogsnip, COUNT(blogdtl.blogid) as numposts FROM user INNER JOIN blogdtl on user.userid = blogdtl.userid
             INNER JOIN (SELECT LEFT(blogbody, 50) as 'blogsnip', userid from blogdtl) blogletter ON user.userid = blogletter.userid GROUP BY user.username";
             $statement = $this->_pdo->prepare($select);
             $statement->execute();
