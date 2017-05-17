@@ -1,0 +1,16 @@
+  .big-btn {
+        width: 90px;
+        height: 40px;
+    }
+    .txtarea{
+        width: 100%;
+        height: 250px;
+    }    
+  
+      .huge-btn {
+        width: 200px;
+        height: 90px;
+    }
+    textarea.form-control {
+      height:500px;
+      }

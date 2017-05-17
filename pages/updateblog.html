@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css">
+    <link rel="stylesheet" href="css/blogstyle.css" type="text/css">
+    <title>Create a blog</title>
+    </head>
+    
+    <body>
+        <div class="container">
+            <? include('menu.php') ?>
+            <div class="container col-md-10">
+                     <div class="container navbar-default">
+                    <div class="row col-md-9">
+                        <h1>What do you want to write about?</h1>
+                    </div>
+                     <div class="row col-md-3">
+                         <img src="images/notepad.png" class="img-responsive img-rounded">
+                     </div>
+                </div>
+            <form action="submitblog" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input class="form-control" type="textbox" name="title">
+                </div>
+                   <div class="form-group">
+                    <label for="entry">Blog Entry</label>
+                    <textarea class="form-control"  type="textarea" name="entry"></textarea>
+                </div>
+                <input type="submit" value="Save" class="btn-primary big-btn img-rounded col-md-offset-5">               
+            </form>                
+            </div>
+        </div>     
+    </body>
+</html>

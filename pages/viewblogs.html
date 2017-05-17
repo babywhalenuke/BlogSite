@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css">
+    <link rel="stylesheet" href="css/blogstyle.css" type="text/css">
+    <title>View My Blogs</title>
+    </head>
+    
+    <body>
+        <div class="container">
+            <? include('menu.php') ?>
+            <div class="container col-md-10">
+                    <div class="container navbar-default">
+                    <div class="row col-md-9">
+                        <h1>Your blogs!</h1>
+                    </div>
+                     <div class="row col-md-3">
+                       <img src="{{@user->getPortraitLink()}}" class="img-responsive img-rounded">                      
+                     </div>   
+                </div>
+                    <div class="container col-md-9">
+                             <table class="table">
+                    <tr>
+                        <td><strong>Blog</strong></td>
+                        <td><strong>Update</strong></td>
+                        <td><strong>Delete</strong></td>
+                    </tr>
+                    <repeat group="{{@blogs}}" value="{{@blog}}">
+                        <tr>
+                            <td>{{@blog->getBlogTitle()}}</td>
+                            <td><a href="updateblog/{{@blog->getBlogID()}}"><span class="glyphicon glyphicon-wrench"></span></a></td>
+                            <td><a href="deleteblog/{{@blog->getBlogID()}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                        </repeat>
+                </table>    
+                    </div>
+                    <div class="container col-md-3">
+                        This is where the bio goes.
+                    </div>
+           
+                
+            </div>
+        </div>
+    </body>
+</html>
