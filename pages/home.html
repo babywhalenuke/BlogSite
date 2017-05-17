@@ -8,10 +8,13 @@
     
     <body>
         <div class="container">
-            <? include('menu.php') ?>
             <div class="container col-md-10">
-            
-                
+                <repeat group="{{@users}}" value="{{@user}}">
+                <div class="container col-md-4">
+                    <img src="{{@image}}" class="img-responsive">
+                    <p>{{@username}}</p>
+                </div>
+                </repeat>
             </div>
         </div>
      

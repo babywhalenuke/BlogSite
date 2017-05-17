@@ -12,13 +12,24 @@ $f3->set('DEBUG',3);
 //define default route
 
 $f3->route('GET /', function($f3) {
-          $view = new View;
-    echo $view->render('pages/home.html');
-       echo Template::instance()->render('pages/home.html');
+    $blogDB = $GLOBALS['blogDB'];
+    $userDB = $GLOBALS['userDB'];
+    
+    $results = $blogDB->getHomePageInfo();
+ 
+    
+    echo var_dump($results);
+    $f3->set('users',$results);
+
+    
+    echo Template::instance()->render('pages/menu.php');
+    echo Template::instance()->render('pages/home.html');
+
 });
 
 $f3->route('GET /about', function() {
     $view = new View;
+    echo $view->render('pages/menu.php');
     echo $view->render('pages/about.html');
 });
 
@@ -34,6 +45,7 @@ $f3->route('GET /signup', function() {
 
 $f3->route('GET /createblog', function() {    
     $view = new View;
+    echo $view->render('pages/menu.php');
     echo $view->render('pages/create.html');
 });
 
@@ -53,10 +65,12 @@ $f3->route('GET @seeblogs: /myblogs', function($f3) {
     $userDB = $GLOBALS['userDB'];
     $blogs = $blogDB->getBlogsByUser($userid);
     $user = $userDB->getUser($userid);
-
+    
+    
 
     $f3->set('user',$user);
     $f3->set('blogs',$blogs);
+    echo Template::instance()->render('pages/menu.php');
     echo Template::instance()->render('pages/viewblogs.html');
     
 });
@@ -73,6 +87,7 @@ $f3->route('GET /updateblog/@blogid', function($f3,$params) {
     
    # $f3->set('user',$user);
   #  $f3->set('blogs',$blogs);
+    echo Template::instance()->render('pages/menu.php');
     echo Template::instance()->render('pages/updateblog.html');
 
 });
@@ -92,16 +107,6 @@ $f3->route('GET /deleteblog/@blogid', function($f3,$params) {
     $blogDB->removeBlog($params['blogid']);
     $f3->reroute("@seeblogs");
 });
-
-
-
-
-
-
-
-
-
-
 
 
 $f3->route('POST /loginWelcome', function() {
@@ -126,7 +131,9 @@ $f3->route('POST /loginWelcome', function() {
         $_SESSION['isAuthenticated'] = true;
         $_SESSION['username'] = $username;
         $view = new View;
+ 
         echo $view->render('pages/home.html');
+        
            
         }
     
