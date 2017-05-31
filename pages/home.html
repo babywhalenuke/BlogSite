@@ -8,10 +8,10 @@
     </head>
     
     <body>
-        <div class="container">           
+        <div class="container col-md-10">           
                 <repeat group="{{@users}}" value="{{@user}}">
-                <div class="container col-md-4 text-center navbar-default cont-pad">
-                    <img src="{{@user['image']}}" class="img-responsive">
+                <div class="container col-md-4 text-center navbar-default ">
+                    <img src="{{@user['image']}}" class="center-block img-responsive">
                     <hr>
                     <p>{{@user['username']}}</p>
                     <hr>

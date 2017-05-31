@@ -38,7 +38,7 @@ $f3->route('GET /login', function() {
 
 $f3->route('GET /signup', function() {
     $view = new View;
-     echo $view->render('pages/menu.php');
+    echo $view->render('pages/menu.php');
     echo $view->render('pages/signup.html');
 });
 

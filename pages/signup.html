@@ -4,7 +4,11 @@
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css">
     <link rel="stylesheet" href="css/blogstyle.css" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <title>New Blogger Registration</title>
+   
+        
     </head>
     
     <body>
@@ -19,11 +23,12 @@
                 <img src="images/blogimg.jpg" class="img-responsive"> 
                 </div>
                 <br>
-                <form action="welcome" method="post">
+                <form action="welcome" method="post" id="signup-form">
                     <div class="container col-md-6">
                         <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" type="text" name="username">
+                              <input class="form-control" type="text" name="username" id="username">
+                               <div class="alert"hidden=true>Error: <span id="usernameerror"></span></div>
                             </div>
                             <div class="form-group col-md-6">
                               <input class="btn-default img-rounded" type="button" value="Username" disabled>
@@ -31,7 +36,8 @@
                         </div>
                          <div class="row">
                             <div class="form-group col-md-6">
-                                <input class="form-control" type="text" name="email">
+                                <input class="form-control" type="text" name="email" id="email">
+                                <div class="alert" hidden=true>Error: <span id="emailerror"></span></div>
                             </div>
                             <div class="form-group col-md-6">
                                <input class="btn-default img-rounded" type="button" value="Email" disabled>
@@ -39,7 +45,8 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <input class="form-control" type="text" name="password">
+                                <input class="form-control" type="text" name="password" id="password">
+                                <div class="alert" hidden=true>Error: <span id="passworderror"></span></div>
                             </div>
                             <div class="form-group col-md-6">
                                <input class="btn-default img-rounded" type="button" value="Password" disabled>
@@ -47,7 +54,8 @@
                         </div>
                          <div class="row">
                             <div class="form-group col-md-6">
-                                <input class="form-control" type="text" name="verify">
+                                <input class="form-control" type="text" name="verify" id="verify">
+                                
                             </div>
                             <div class="form-group col-md-6">
                                <input class="btn-default img-rounded" type="button" value="Verify" disabled>
@@ -69,7 +77,8 @@
                               <input class="btn-default img-rounded" type="button" value="Quick Biography" disabled>
                             </div>
                             <div class="form-group">
-                              <input class="form-control txtarea" type="textarea" name="bio">
+                              <input class="form-control txtarea" type="textarea" name="bio" id="bio">
+                              <div class="alert" hidden=true>Error: <span id="bioerror"></span></div>
                             </div>
                         </div>
                     </div>
@@ -81,5 +90,20 @@
                 </form>
             </div>
         </div>
+        
+         
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+        
+ 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+        <script src="js/validate.js"></script>
+        
+        <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     </body>
 </html>
