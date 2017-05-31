@@ -177,19 +177,46 @@ $f3->route('POST /welcome', function($f3) {
     $portrait  = $_POST['portraiturl'];
     $bio = $_POST['bio'];
     
- 
-
-    $user = new Blogger($username,$password,$email,$bio,$portrait);
     $userDB = $GLOBALS['userDB'];
-    $userDB->addUser($username,$password,$email,$bio,$portrait);
+       
+    $result = $userDB->getUserName($username);
     
-    $userExists = $userDB->getUserName($username);
-    
-       if(isset($userExists)){
+    ##check for username
+    $userExists = $result[0]["username"];
+    if($username == $userExists){
+        echo "username: ".var_dump($username);
+         echo "userexists: ".var_dump($userExists);
+        $error = true;
         echo "Username is taken, please enter a new username";
     }
     
-    $f3->reroute("@home");
+
+    $user = new Blogger($username,$password,$email,$bio,$portrait);
+ 
+    $userDB->addUser($username,$password,$email,$bio,$portrait);
+    //validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+     $emailErr = "Invalid email format";
+     $error= true;
+     echo $emailErr;
+    }
+    
+    //validate password matches verify
+    if($password!=$verify){
+          $error= true;
+        echo "Passwords do not match. Please correct";
+    }
+    
+    //validate bio exists
+    
+    if(!isset($bio)){
+        $error= true;
+        echo "Please enter bio";
+    }
+    //if no error, proceed
+    if(!$error){
+     $f3->reroute("@home");
+    }
 });
 
 $f3->route('GET /logout', function($f3) {
