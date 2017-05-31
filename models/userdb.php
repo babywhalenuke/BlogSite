@@ -81,5 +81,15 @@ Class UserDB
             
         }
         
+          function getUserName($username){
+           $select = 'SELECT username FROM user WHERE username = :username';
+           $statement = $this->_pdo->prepare($select);
+           $statement->bindParam(':username',$username,PDO::PARAM_STR);
+           $statement->execute();
+           $result = $statement->fetchAll(PDO::FETCH_ASSOC);           
+           return $result;
+            
+        }
+        
 
 }

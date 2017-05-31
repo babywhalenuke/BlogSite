@@ -176,10 +176,18 @@ $f3->route('POST /welcome', function($f3) {
     $verify = $_POST['verify'];
     $portrait  = $_POST['portraiturl'];
     $bio = $_POST['bio'];
+    
+ 
 
     $user = new Blogger($username,$password,$email,$bio,$portrait);
     $userDB = $GLOBALS['userDB'];
     $userDB->addUser($username,$password,$email,$bio,$portrait);
+    
+    $userExists = $userDB->getUserName($username);
+    
+       if(isset($userExists)){
+        echo "Username is taken, please enter a new username";
+    }
     
     $f3->reroute("@home");
 });

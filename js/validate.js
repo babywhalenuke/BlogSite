@@ -14,6 +14,8 @@ function validate(event){
     var isError = false;
     
     var bio = $("#bio").val();
+    bio = strip(bio);
+
     if(bio.length < 1){
         var bioError = "Bio must be entered.";
         report("bioerror",bioError);
@@ -81,4 +83,11 @@ function removeErrors(){
 function checkPassword(inputtxt) {   
     var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     return re.test(inputtxt);
-}  
+}
+
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
